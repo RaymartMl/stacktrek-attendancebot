@@ -21,7 +21,6 @@ export async function addTimeGsheets({
   willDo,
   impediments,
 }) {
-  console.log(timeIn);
   await sheet.addRow({
     Name: name,
     Date: date,

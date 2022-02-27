@@ -1,11 +1,11 @@
-const { add_time } = require("./sheets");
+import { add_time } from "./sheets.js";
 
-module.exports.registerListeners = (app) => {
+export function registerListeners(app) {
   app.shortcut("global_time_in", timeInCallback);
   app.view("time_in_modal", timeInModalCallback);
   app.shortcut("global_time_out", timeOutCallback);
   app.view("time_out_modal", timeOutModalCallback);
-};
+}
 
 async function timeInCallback({ shortcut, ack, client, logger }) {
   try {
@@ -83,11 +83,11 @@ async function timeInModalCallback({ ack, view, logger }) {
       parseInt(view["hash"].split(".")[0]) * 1000,
     ).toLocaleString();
     const date = datetime.slice(0, 10);
-    const time = datetime.slice(12);
+    const timeIn = datetime.slice(12);
 
     const doing_today = view.state.values.doingToday.doingToday.value;
 
-    await add_time({ date, time, doing_today });
+    await add_time({ date, time: timeIn, doing_today });
   } catch (error) {
     logger.error(error);
   }
@@ -122,7 +122,7 @@ async function timeOutCallback({ shortcut, ack, client, logger }) {
             type: "header",
             text: {
               type: "plain_text",
-              text: "Time-out",
+              text: "Time-Out",
               emoji: true,
             },
           },
@@ -147,7 +147,24 @@ async function timeOutCallback({ shortcut, ack, client, logger }) {
             },
             label: {
               type: "plain_text",
-              text: "What did you do today?",
+              text: "What did you do today",
+              emoji: true,
+            },
+          },
+          {
+            type: "divider",
+          },
+          {
+            type: "input",
+            block_id: "willDo",
+            element: {
+              type: "plain_text_input",
+              multiline: true,
+              action_id: "willDo",
+            },
+            label: {
+              type: "plain_text",
+              text: "What are you planning to do next",
               emoji: true,
             },
           },
@@ -165,15 +182,16 @@ async function timeOutModalCallback({ ack, view, logger }) {
   try {
     await ack();
 
-    const time = new Date(
+    const datetime = new Date(
       parseInt(view["hash"].split(".")[0]) * 1000,
     ).toLocaleString();
-    const doing_today = view.state.values.doToday.doToday.value;
+    const date = datetime.slice(0, 10);
+    const timeOut = datetime.slice(12);
 
-    console.log(time);
-    console.log(doing_today);
+    const do_today = view.state.values.doToday.doToday.value;
+    const will_do = view.state.values.willDo.willDo.value;
 
-    // await add_time(time, doing_today);
+    await add_time({ date, time: timeOut, do_today, will_do });
   } catch (error) {
     logger.error(error);
   }

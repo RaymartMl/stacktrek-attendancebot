@@ -1,8 +1,10 @@
-require("dotenv").config();
-const { App } = require("@slack/bolt");
-const { registerListeners } = require("./listeners");
+import dotenv from "dotenv";
+import bolt from "@slack/bolt";
+import { registerListeners } from "./listeners.js";
 
-const app = new App({
+dotenv.config();
+
+const app = new bolt.App({
   token: process.env.SLACK_BOT_TOKEN,
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   appToken: process.env.SLACK_APP_TOKEN,

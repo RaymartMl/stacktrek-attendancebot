@@ -8,6 +8,7 @@
     "start": "ode build/index.js"
   },
   "keywords": [],
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {

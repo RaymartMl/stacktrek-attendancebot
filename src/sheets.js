@@ -11,21 +11,25 @@ await doc.useServiceAccountAuth({
 await doc.loadInfo();
 const sheet = doc.sheetsById[process.env.GOOGLE_SPREADSHEET_SHEET_ID];
 
-export async function add_time({
+export async function addTimeGsheets({
+  name,
   date,
   timeIn,
   timeOut,
-  doing_today,
-  do_today,
-  will_do,
+  doingToday,
+  doToday,
+  willDo,
+  impediments,
 }) {
+  console.log(timeIn);
   await sheet.addRow({
-    Name: "john doe",
+    Name: name,
     Date: date,
     "Time-in": timeIn,
     "Time-out": timeOut,
-    "What wil I do": doing_today || "",
-    "What did I do": do_today || "",
-    "What will I do": will_do || "",
+    "What wil I do": doingToday,
+    "What did I do": doToday,
+    "What will I do": willDo,
+    Impediments: impediments,
   });
 }

@@ -1,4 +1,5 @@
-import { add_time } from "./sheets.js";
+import { getTimeInHash } from "../utils.js";
+import { addTimeGsheets } from "./sheets.js";
 
 export function registerListeners(app) {
   app.shortcut("global_time_in", timeInCallback);
@@ -75,19 +76,22 @@ async function timeInCallback({ shortcut, ack, client, logger }) {
   }
 }
 
-async function timeInModalCallback({ ack, view, logger }) {
+async function timeInModalCallback({ body, ack, client, view, logger }) {
   try {
     await ack();
 
-    const datetime = new Date(
-      parseInt(view["hash"].split(".")[0]) * 1000,
-    ).toLocaleString();
-    const date = datetime.slice(0, 10);
-    const timeIn = datetime.slice(12);
+    const { user } = await client.users.info({
+      user: body.user.id,
+    });
+    const { date, time } = getTimeInHash(view["hash"]);
+    const doingToday = view.state.values.doingToday.doingToday.value;
 
-    const doing_today = view.state.values.doingToday.doingToday.value;
-
-    await add_time({ date, time: timeIn, doing_today });
+    await addTimeGsheets({
+      name: user.real_name,
+      date,
+      timeIn: time,
+      doingToday,
+    });
   } catch (error) {
     logger.error(error);
   }
@@ -168,6 +172,23 @@ async function timeOutCallback({ shortcut, ack, client, logger }) {
               emoji: true,
             },
           },
+          {
+            type: "divider",
+          },
+          {
+            type: "input",
+            block_id: "impediments",
+            element: {
+              type: "plain_text_input",
+              multiline: true,
+              action_id: "impediments",
+            },
+            label: {
+              type: "plain_text",
+              text: "Impediments",
+              emoji: true,
+            },
+          },
         ],
       },
     });
@@ -178,20 +199,26 @@ async function timeOutCallback({ shortcut, ack, client, logger }) {
   }
 }
 
-async function timeOutModalCallback({ ack, view, logger }) {
+async function timeOutModalCallback({ body, ack, client, view, logger }) {
   try {
     await ack();
 
-    const datetime = new Date(
-      parseInt(view["hash"].split(".")[0]) * 1000,
-    ).toLocaleString();
-    const date = datetime.slice(0, 10);
-    const timeOut = datetime.slice(12);
+    const { user } = await client.users.info({
+      user: body.user.id,
+    });
+    const { date, time } = getTimeInHash(view["hash"]);
+    const doToday = view.state.values.doToday.doToday.value;
+    const willDo = view.state.values.willDo.willDo.value;
+    const impediments = view.state.values.impediments.impediments.value;
 
-    const do_today = view.state.values.doToday.doToday.value;
-    const will_do = view.state.values.willDo.willDo.value;
-
-    await add_time({ date, time: timeOut, do_today, will_do });
+    await addTimeGsheets({
+      name: user.real_name,
+      date,
+      timeOut: time,
+      doToday,
+      willDo,
+      impediments,
+    });
   } catch (error) {
     logger.error(error);
   }

@@ -6,6 +6,8 @@ export function registerListeners(app) {
   app.view("time_in_modal", timeInModalCallback);
   app.shortcut("global_time_out", timeOutCallback);
   app.view("time_out_modal", timeOutModalCallback);
+  app.message("!in", timeInMessageCallback);
+  app.message("!out", timeOutMessageCallback);
 }
 
 async function timeInCallback({ shortcut, ack, client, logger }) {
@@ -218,6 +220,54 @@ async function timeOutModalCallback({ body, ack, client, view, logger }) {
       doToday,
       willDo,
       impediments,
+    });
+  } catch (error) {
+    logger.error(error);
+  }
+}
+
+async function timeInMessageCallback({ client, payload, logger }) {
+  try {
+    const { user } = await client.users.info({
+      user: payload.user,
+    });
+
+    const { date, time } = getTimeInHash(payload.ts);
+
+    await addTimeGsheets({
+      name: user.real_name,
+      date,
+      timeIn: time,
+    });
+
+    client.reactions.add({
+      channel: payload.channel,
+      name: "thumbsup",
+      timestamp: payload.ts,
+    });
+  } catch (error) {
+    logger.error(error);
+  }
+}
+
+async function timeOutMessageCallback({ client, payload, logger, say }) {
+  try {
+    const { user } = await client.users.info({
+      user: payload.user,
+    });
+
+    const { date, time } = getTimeInHash(payload.ts);
+
+    await addTimeGsheets({
+      name: user.real_name,
+      date,
+      timeOut: time,
+    });
+
+    client.reactions.add({
+      channel: payload.channel,
+      name: "thumbsup",
+      timestamp: payload.ts,
     });
   } catch (error) {
     logger.error(error);

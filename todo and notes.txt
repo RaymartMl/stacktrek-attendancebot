@@ -1,0 +1,24 @@
+TODO
+
+create a app home
+add logger
+gsheets orm: https://github.com/vlucas/sheetquery
+ui: https://github.com/raycharius/slack-block-builder
+
+=
+
+NOTES
+need admin approval to install
+max 10 connections in socket mode
+needs a hosting 
+slack api is still really new
+make sure to add the service account email to the editor of the google sheets
+
+not enough typescript support :(
+	- https://github.com/slackapi/bolt-js/issues/904
+read example: 
+	 - https://slack.dev/bolt-js/tutorial/getting-started#tokens-and-installing-apps
+	 - https://github.com/slackapi/node-tasks-app/
+
+alternative:
+	can use slack workflow/zapier

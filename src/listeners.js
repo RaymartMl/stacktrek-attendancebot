@@ -1,3 +1,5 @@
+const { add_time } = require("./sheets");
+
 module.exports.registerListeners = (app) => {
   app.shortcut("global_time_in", timeInCallback);
   app.view("time_in_modal", timeInModalCallback);
@@ -77,15 +79,15 @@ async function timeInModalCallback({ ack, view, logger }) {
   try {
     await ack();
 
-    const time = new Date(
+    const datetime = new Date(
       parseInt(view["hash"].split(".")[0]) * 1000,
     ).toLocaleString();
+    const date = datetime.slice(0, 10);
+    const time = datetime.slice(12);
+
     const doing_today = view.state.values.doingToday.doingToday.value;
 
-    console.log(time);
-    console.log(doing_today);
-
-    // await add_time(time, doing_today);
+    await add_time({ date, time, doing_today });
   } catch (error) {
     logger.error(error);
   }

@@ -6,6 +6,12 @@ add datetime library
 gsheets orm: https://github.com/vlucas/sheetquery
 ui: https://github.com/raycharius/slack-block-builder
 
+deploy:
+	- https://blog.heroku.com/how-to-deploy-your-slack-bots-to-heroku
+	- https://developers.cloudflare.com/workers/get-started/guide/
+
+add image/gif each command in the readme?
+
 =
 
 NOTES

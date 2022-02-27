@@ -13,9 +13,3 @@ const app = new App({
 
   console.log("⚡️ Bolt app is running!");
 })();
-
-app.message("hello", async ({ message, say }) => {
-  await say({
-    text: `Hey there <@${message.user}>!`,
-  });
-});

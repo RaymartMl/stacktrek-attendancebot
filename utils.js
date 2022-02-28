@@ -1,4 +1,5 @@
 export function getTimeInHash(hash) {
+  console.log(hash);
   const unixTime = parseInt(hash.split(".")[0]) * 1000;
   const datetime = new Date(unixTime).toLocaleString();
 

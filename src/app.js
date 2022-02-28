@@ -9,6 +9,7 @@ const app = new bolt.App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   appToken: process.env.SLACK_APP_TOKEN,
   socketMode: true,
+  port: process.env.PORT || 3000,
 });
 
 (async () => {

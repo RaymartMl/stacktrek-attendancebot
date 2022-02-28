@@ -29,12 +29,6 @@ A quick command to time in for the day.
 
 A quick command to time out for the day.
 
----
-
-#### `remove numbers`
-
-Remove lines with that only has numbers. Used for removing pages numbers in converted .txt files
-
 
 
 ## Authors

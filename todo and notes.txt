@@ -11,6 +11,7 @@ deploy:
 	- https://developers.cloudflare.com/workers/get-started/guide/
 
 add image/gif each command in the readme?
+notes: https://developers.google.com/sheets/api/guides/filters
 
 =
 

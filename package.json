@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon",
-    "start": "ode build/index.js"
+    "start": "node src/index.js"
   },
   "keywords": [],
   "type": "module",

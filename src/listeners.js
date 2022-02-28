@@ -1,5 +1,5 @@
-import { getTimeInHash } from "../utils.js";
-import { addTimeGsheets } from "./sheets.js";
+import { getTimeInHash } from "./utils.js";
+import { addTimeGsheets, addTimeGsheetsSimple } from "./sheets.js";
 
 export function registerListeners(app) {
   app.shortcut("global_time_in", timeInCallback);
@@ -85,7 +85,7 @@ async function timeInModalCallback({ body, ack, client, view, logger }) {
     const { user } = await client.users.info({
       user: body.user.id,
     });
-    const { date, time } = getTimeInHash(view["hash"]);
+    const { date, time } = getTimeInHash(view["hash"], user.tz);
     const doingToday = view.state.values.doingToday.doingToday.value;
 
     await addTimeGsheets({
@@ -208,7 +208,7 @@ async function timeOutModalCallback({ body, ack, client, view, logger }) {
     const { user } = await client.users.info({
       user: body.user.id,
     });
-    const { date, time } = getTimeInHash(view["hash"]);
+    const { date, time } = getTimeInHash(view["hash"], user.tz);
     const doToday = view.state.values.doToday.doToday.value;
     const willDo = view.state.values.willDo.willDo.value;
     const impediments = view.state.values.impediments.impediments.value;
@@ -232,9 +232,9 @@ async function timeInMessageCallback({ client, payload, logger }) {
       user: payload.user,
     });
 
-    const { date, time } = getTimeInHash(payload.ts);
+    const { date, time } = getTimeInHash(payload.ts, user.tz);
 
-    await addTimeGsheets({
+    await addTimeGsheetsSimple({
       name: user.real_name,
       date,
       timeIn: time,
@@ -250,15 +250,15 @@ async function timeInMessageCallback({ client, payload, logger }) {
   }
 }
 
-async function timeOutMessageCallback({ client, payload, logger, say }) {
+async function timeOutMessageCallback({ client, payload, logger }) {
   try {
     const { user } = await client.users.info({
       user: payload.user,
     });
 
-    const { date, time } = getTimeInHash(payload.ts);
+    const { date, time } = getTimeInHash(payload.ts, user.tz);
 
-    await addTimeGsheets({
+    await addTimeGsheetsSimple({
       name: user.real_name,
       date,
       timeOut: time,

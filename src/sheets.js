@@ -32,3 +32,13 @@ export async function addTimeGsheets({
     Impediments: impediments,
   });
 }
+
+export async function addTimeGsheetsSimple({ name, date, timeIn, timeOut }) {
+  const sheet = doc.sheetsById[2142283329];
+  await sheet.addRow({
+    Name: name,
+    Date: date,
+    "Time-in": timeIn,
+    "Time-out": timeOut,
+  });
+}

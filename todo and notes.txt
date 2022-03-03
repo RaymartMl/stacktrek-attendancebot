@@ -15,6 +15,10 @@ notes: https://developers.google.com/sheets/api/guides/filters
 
 api home: https://api.slack.com/apps/A034U8CE94J
 
+possible solution:
+	- create separate table for in and out
+	- then combine in one table
+
 =
 
 NOTES

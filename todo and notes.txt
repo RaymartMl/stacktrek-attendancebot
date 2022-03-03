@@ -3,7 +3,7 @@ TODO
 create a app home
 add logger
 add datetime library
-gsheets orm: https://github.com/vlucas/sheetquery
+https://github.com/joway/sheetsql
 ui: https://github.com/raycharius/slack-block-builder
 
 deploy:
@@ -18,6 +18,7 @@ api home: https://api.slack.com/apps/A034U8CE94J
 possible solution:
 	- create separate table for in and out
 	- then combine in one table
+
 
 =
 
@@ -36,3 +37,6 @@ read example:
 
 alternative:
 	can use slack workflow/zapier
+
+google sheets api fetch specific text is no working:
+	 https://stackoverflow.com/questions/64476007/how-to-fetch-specific-row-from-google-sheet-by-using-google-sheet-apisnode-js

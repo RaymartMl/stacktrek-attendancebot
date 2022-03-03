@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "fs";
 import { createInterface } from "readline";
 import { google } from "googleapis";
+import googleCharts from "google-charts-node";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -11,12 +12,15 @@ const TOKEN_PATH = "token.json";
 // read credentials and authorize and list majors
 readFile("credentials.json", (err, content) => {
   if (err) return console.log("Error loading client secret file:", err);
-  authorize(JSON.parse(content), listMajors);
+  authorize(JSON.parse(content), timeIn);
 });
 
 // get the contents of credentials.json
 // check if there is a token and as getNewToken if there is non
 // call the callback with the auth
+
+// 
+
 function authorize(credentials, callback) {
   const { client_secret, client_id, redirect_uris } = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(
@@ -88,4 +92,15 @@ function listMajors(auth) {
       }
     },
   );
+}
+
+function timeIn(auth) {
+  const sheets = google.sheets({ version: "v4", auth });
+  console.log(googleCharts);
+  //   const query = new google.visualization.Query(
+  //     "https://docs.google.com/spreadsheets/d/1rr1ldX_YjbNlVmPGu7Vslzcf03Vof9Mh36-YWIukvmk/",
+  //   );
+
+  //   query.setQuery("select Name");
+  //   query.send((a) => console.log(a));
 }

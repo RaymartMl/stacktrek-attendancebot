@@ -6,30 +6,31 @@ features:
   app_home:
     home_tab_enabled: true
     messages_tab_enabled: true
-    messages_tab_read_only_enabled: true
+    messages_tab_read_only_enabled: false
   bot_user:
     display_name: Stacktrek Attendance Bot
     always_online: false
   shortcuts:
-    - name: Time in
-      type: global
-      callback_id: global_time_in
-      description: Time in
     - name: Time out
       type: global
       callback_id: global_time_out
       description: Time out
+    - name: Time in
+      type: global
+      callback_id: global_time_in
+      description: Time in
 oauth_config:
   scopes:
     bot:
-      - commands
-      - chat:write
       - channels:history
+      - chat:write
+      - commands
       - groups:history
       - im:history
+      - im:read
       - mpim:history
-      - users:read
       - reactions:write
+      - users:read
 settings:
   event_subscriptions:
     bot_events:

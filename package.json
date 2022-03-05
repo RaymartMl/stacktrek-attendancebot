@@ -14,7 +14,7 @@
   "dependencies": {
     "@slack/bolt": "^3.10.0",
     "dotenv": "^16.0.0",
-    "google-spreadsheet": "^3.2.0"
+    "sheetsql": "^0.1.7"
   },
   "devDependencies": {
     "eslint": "^8.10.0",

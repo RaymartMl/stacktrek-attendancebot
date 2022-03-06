@@ -13,11 +13,11 @@ export async function getUser(userId, client) {
   return user;
 }
 
-export async function emojiReaction(name, client, payload) {
+export async function emojiReaction(name, client, message) {
   await client.reactions.add({
     name,
-    channel: payload.channel,
-    timestamp: payload.ts,
+    channel: message.channel,
+    timestamp: message.ts,
   });
 }
 

@@ -124,6 +124,7 @@ dist
 .pnp.*
 
 scrathpad.js
+scrathpad/
 credentials.json
 token.json
 google-serviceaccount.json

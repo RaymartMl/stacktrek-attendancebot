@@ -1,25 +1,15 @@
-export async function onlyDixiBot({ message, next }, name) {
-  const botName = "Dixi App";
-  const botId = "B034YML7NP7";
+export function onlyDixiBot(name) {
+  return async ({ message, next }) => {
+    const hasName = message.attachments?.some((attachment) =>
+      attachment.fallback.includes(name),
+    );
 
-  if (
-    (message.user_name === botName || message.bot_id === botId) &&
-    message.attachments.some((attachment) => attachment.fallback.includes(name))
-  ) {
-    await next();
-  }
-}
+    const isSubmittedStandup = message.attachments?.some((attachment) =>
+      attachment.fallback.includes("submitted standup"),
+    );
 
-export async function onlyTimeInTimeOut({ message, next }) {
-  const isSubmittedStandup = message.attachments?.find((attachment) =>
-    attachment.fallback.includes("submitted standup"),
-  );
-
-  const hasMention = message.attachments?.find((attachment) =>
-    attachment.fallback.includes("<@"),
-  );
-
-  if (isSubmittedStandup && hasMention) {
-    return next();
-  }
+    if (message.username === "Dixi App" && hasName && isSubmittedStandup) {
+      await next();
+    }
+  };
 }

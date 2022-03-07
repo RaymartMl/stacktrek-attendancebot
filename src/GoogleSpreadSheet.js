@@ -16,7 +16,7 @@ export class GoogleSpreadsheet {
   }
 
   async addRecord(recordObject) {
-    const row = await this.#db.insert([recordObject]);
+    await this.#db.insert([recordObject]);
   }
 
   async findRecord(findObject) {
@@ -24,7 +24,7 @@ export class GoogleSpreadsheet {
     return row;
   }
   async updateRecord(findObject, updateObject) {
-    const row = await this.#db.update(findObject, updateObject);
+    await this.#db.update(findObject, updateObject);
   }
 }
 

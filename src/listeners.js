@@ -6,6 +6,7 @@ import { subtype } from "@slack/bolt";
 export function registerListeners(app) {
   app.message(subtype("bot_message"), onlyDixiBot("Time-in"), timeInCallback);
   app.message(subtype("bot_message"), onlyDixiBot("Time-out"), timeOutCallback);
+  app.message("debug", debugCallback);
 }
 
 async function timeInCallback({ message, client, logger }) {
@@ -26,6 +27,17 @@ async function timeOutCallback({ message, client, logger }) {
     const { name, date, time } = await getInfo(userIds[0], message, client);
 
     timeOut(name, date, time);
+    await emojiReaction("thumbsup", client, message);
+  } catch (error) {
+    logger.error(error);
+  }
+}
+
+async function debugCallback({ message, client, logger }) {
+  try {
+    const { name, date, time } = await getInfo(message.user, message, client);
+
+    timeIn(name, date, time);
     await emojiReaction("thumbsup", client, message);
   } catch (error) {
     logger.error(error);

@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import bolt, { ExpressReceiver } from "@slack/bolt";
+import bolt from "@slack/bolt";
 import { registerListeners } from "../listeners.js";
 import {
   generateReceiverEvent,
@@ -28,7 +28,7 @@ export async function handler(event) {
   };
 }
 
-const expressReceiver = new ExpressReceiver({
+const expressReceiver = new bolt.ExpressReceiver({
   signingSecret: `${process.env.SLACK_SIGNING_SECRET}`,
   processBeforeResponse: true,
 });

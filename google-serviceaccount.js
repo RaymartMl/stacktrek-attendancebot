@@ -21,5 +21,5 @@ const jsonFile = JSON.stringify(
 );
 
 const unEscapedJsonFile = jsonFile.replace(/\\n/g, "n");
-
-writeFileSync("google-serviceaccount.json", unEscapedJsonFile);
+// console.log(import.meta.url + "/lib");
+writeFileSync("netlify/google-serviceaccount.json", unEscapedJsonFile);

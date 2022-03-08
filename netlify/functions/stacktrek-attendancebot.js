@@ -1,15 +1,43 @@
 import dotenv from "dotenv";
-import bolt from "@slack/bolt";
+import bolt, { ExpressReceiver } from "@slack/bolt";
 import { registerListeners } from "../listeners.js";
+import {
+  generateReceiverEvent,
+  isUrlVerificationRequest,
+  parseRequestBody,
+} from "./utils.js";
 
 dotenv.config();
+
+export async function handler(event) {
+  const payload = parseRequestBody(event.body, event.headers["content-type"]);
+
+  if (isUrlVerificationRequest(payload)) {
+    return {
+      statusCode: 200,
+      body: payload?.challenge,
+    };
+  }
+
+  const slackEvent = generateReceiverEvent(payload);
+  await app.processEvent(slackEvent);
+
+  return {
+    statusCode: 200,
+    body: "",
+  };
+}
+
+const expressReceiver = new ExpressReceiver({
+  signingSecret: `${process.env.SLACK_SIGNING_SECRET}`,
+  processBeforeResponse: true,
+});
 
 const app = new bolt.App({
   token: process.env.SLACK_BOT_TOKEN,
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   appToken: process.env.SLACK_APP_TOKEN,
-  socketMode: true,
-  port: process.env.PORT || 3000,
+  receiver: expressReceiver,
 });
 
 (async () => {

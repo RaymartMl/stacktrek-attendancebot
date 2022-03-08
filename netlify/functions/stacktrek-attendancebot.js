@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import bolt from "@slack/bolt";
-import { registerListeners } from "./listeners.js";
+import { registerListeners } from "../listeners.js";
 
 dotenv.config();
 

@@ -1,5 +1,5 @@
 import { timeIn, TimedInError } from "./GoogleSpreadSheet.js";
-import { emojiReaction, getInfo } from "./utils.js";
+import { emojiReaction, getInfo } from "./functions/utils.js";
 
 export function debugListeners(app) {
   app.message("normal-debug", normalDebugCallback);

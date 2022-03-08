@@ -9,7 +9,7 @@ export class GoogleSpreadsheet {
     this.#db = new Database({
       db: process.env.GOOGLE_SPREADSHEET_DOCUMENT_ID,
       table: process.env.GOOGLE_SPREADSHEET_SHEET_NAME,
-      keyFile: "/opt/build/repo/google-serviceaccount.json",
+      keyFile: "/tmp/google-serviceaccount.json",
       cacheTimeoutMs: 5000,
     });
     this.#db.load();

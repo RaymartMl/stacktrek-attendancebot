@@ -1,101 +1,47 @@
-import { getInfo, emojiReaction } from "./utils.js";
+import { getInfo, emojiReaction, getMentionUserIds } from "./utils.js";
 import {
-  timeIn,
-  timeOut,
   TimedInError,
   TimedOutError,
+  timeIn,
+  timeOut,
 } from "./GoogleSpreadSheet.js";
+import { onlyDixiBot } from "./middlewares.js";
+import { subtype } from "@slack/bolt";
+import { debugListeners } from "./debugListeners.js";
 
 export function registerListeners(app) {
-  app.message("in", timeInMessageCallback);
-  app.message("out", timeOutMessageCallback);
+  app.message(subtype("bot_message"), onlyDixiBot("Time-in"), timeInCallback);
+  app.message(subtype("bot_message"), onlyDixiBot("Time-out"), timeOutCallback);
+
+  // debugListeners(app);
 }
 
-async function timeInMessageCallback({
-  client,
-  payload,
-  message,
-  logger,
-  say,
-}) {
+async function timeInCallback({ message, client, logger }) {
   try {
-    const { name, date, time } = await getInfo(client, payload);
+    const userIds = getMentionUserIds(message.attachments);
+    const { name, date, time } = await getInfo(userIds[0], message, client);
 
     await timeIn(name, date, time);
-    client.chat.postMessage({
-      blocks: [
-        {
-          type: "context",
-          elements: [
-            {
-              type: "image",
-              image_url:
-                "https://pbs.twimg.com/profile_images/625633822235693056/lNGUneLX_400x400.jpg",
-              alt_text: "cute cat",
-            },
-            {
-              type: "mrkdwn",
-              text: `<@${message.user}> just timed in.`,
-            },
-          ],
-        },
-      ],
-      channel: "C0354HTU8SU",
-      text: `<@${message.user}> just timed in.`,
-    });
-
-    await emojiReaction("thumbsup", client, payload);
+    await emojiReaction("thumbsup", client, message);
   } catch (error) {
+    logger.error(error);
     if (error instanceof TimedInError) {
-      say(error.message);
-    } else {
-      logger.error(error);
+      await emojiReaction("x", client, message);
     }
   }
 }
 
-async function timeOutMessageCallback({
-  client,
-  payload,
-  message,
-  logger,
-  say,
-}) {
+async function timeOutCallback({ message, client, logger }) {
   try {
-    const { name, date, time } = await getInfo(client, payload);
+    const userIds = getMentionUserIds(message.attachments);
+    const { name, date, time } = await getInfo(userIds[0], message, client);
 
     await timeOut(name, date, time);
-
-    client.chat.postMessage({
-      blocks: [
-        {
-          type: "context",
-          elements: [
-            {
-              type: "image",
-              image_url:
-                "https://pbs.twimg.com/profile_images/625633822235693056/lNGUneLX_400x400.jpg",
-              alt_text: "cute cat",
-            },
-            {
-              type: "mrkdwn",
-              text: `<@${message.user}> just time out.`,
-            },
-          ],
-        },
-      ],
-      channel: "C0354HTU8SU",
-      text: `<@${message.user}> just time out.`,
-    });
-
-    await emojiReaction("thumbsup", client, payload);
+    await emojiReaction("thumbsup", client, message);
   } catch (error) {
-    if (error instanceof TimedInError) {
-      say(error.message);
-    } else if (error instanceof TimedOutError) {
-      say(error.message);
-    } else {
-      logger.error(error);
+    logger.error(error);
+    if (error instanceof TimedInError || error instanceof TimedOutError) {
+      await emojiReaction("x", client, message);
     }
   }
 }

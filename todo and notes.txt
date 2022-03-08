@@ -6,6 +6,8 @@ add datetime library
 https://github.com/joway/sheetsql
 ui: https://github.com/raycharius/slack-block-builder
 
+add utils to remove the slack message in bulk
+
 deploy:
 	- https://blog.heroku.com/how-to-deploy-your-slack-bots-to-heroku
 	- https://developers.cloudflare.com/workers/get-started/guide/

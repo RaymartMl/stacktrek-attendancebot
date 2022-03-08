@@ -6,15 +6,6 @@ features:
   bot_user:
     display_name: Stacktrek Attendance Bot
     always_online: false
-  shortcuts:
-    - name: Time out
-      type: global
-      callback_id: global_time_out
-      description: Time out
-    - name: Time in
-      type: global
-      callback_id: global_time_in
-      description: Time in
 oauth_config:
   scopes:
     bot:

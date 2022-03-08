@@ -5,7 +5,7 @@ import {
   generateReceiverEvent,
   isUrlVerificationRequest,
   parseRequestBody,
-} from "./utils.js";
+} from "../utils.js";
 
 dotenv.config();
 

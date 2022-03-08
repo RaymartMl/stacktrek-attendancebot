@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon",
-    "start": "node src/app.js"
+    "start:dev": "npm run config && nodemon",
+    "config": "node google-serviceaccount.js"
   },
   "keywords": [],
   "type": "module",

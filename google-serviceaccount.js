@@ -22,4 +22,4 @@ const jsonFile = JSON.stringify(
 
 const unEscapedJsonFile = jsonFile.replace(/\\n/g, "n");
 
-writeFileSync("./netlify/google-serviceaccount.json", unEscapedJsonFile);
+writeFileSync("google-serviceaccount.json", unEscapedJsonFile);

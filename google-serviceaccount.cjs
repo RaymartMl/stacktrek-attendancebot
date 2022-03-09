@@ -20,11 +20,8 @@ const jsonFile = JSON.stringify(
 );
 
 const unEscapedJsonFile = jsonFile.replace(/\\n/g, "n");
-const fileName = "./google-serviceaccount.json";
-const resolved = process.env.LAMBDA_TASK_ROOT
-  ? path.resolve(process.env.LAMBDA_TASK_ROOT, fileName)
-  : path.resolve(__dirname, fileName);
 
+const fileName = "./google-serviceaccount.json";
 // console.log("Hello =====================================", import.meta.url);
-writeFileSync(resolved, unEscapedJsonFile);
+writeFileSync(path.resolve("/var/task", fileName), unEscapedJsonFile);
 // console.log("Service =====================================", import.meta.url);

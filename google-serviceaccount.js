@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { writeFileSync } from "fs";
+import * as path from "path";
 
 dotenv.config();
 
@@ -21,6 +22,11 @@ const jsonFile = JSON.stringify(
 );
 
 const unEscapedJsonFile = jsonFile.replace(/\\n/g, "n");
+const fileName = "./google-serviceaccount.json";
+const resolved = process.env.LAMBDA_TASK_ROOT
+  ? path.resolve(process.env.LAMBDA_TASK_ROOT, fileName)
+  : path.resolve(__dirname, fileName);
+
 // console.log("Hello =====================================", import.meta.url);
-// writeFileSync("/opt/build/google-serviceaccount.json", unEscapedJsonFile);
-console.log("Service =====================================", import.meta.url);
+writeFileSync(resolved, unEscapedJsonFile);
+// console.log("Service =====================================", import.meta.url);

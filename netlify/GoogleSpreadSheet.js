@@ -1,9 +1,15 @@
 import dotenv from "dotenv";
 import { Database } from "sheetsql";
+import * as path from "path";
 
 dotenv.config();
-console.log("Google =====================================", import.meta.url);
-console.log(process.env.LAMBDA_TASK_ROOT);
+const fileName = "./google-serviceaccount.json";
+const resolved = process.env.LAMBDA_TASK_ROOT
+  ? path.resolve(process.env.LAMBDA_TASK_ROOT, fileName)
+  : path.resolve(__dirname, fileName);
+
+console.log(resolved);
+console.log(__dirname);
 
 export class GoogleSpreadsheet {
   #db;

@@ -1,6 +1,8 @@
-require("dotenv").config();
-const { writeFileSync } = require("fs");
-const path = require("path");
+import dotenv from "dotenv";
+import { writeFileSync } from "fs";
+import * as path from "path";
+
+dotenv.config();
 
 const jsonFile = JSON.stringify(
   {

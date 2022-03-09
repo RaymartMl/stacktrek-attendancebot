@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "npm run config && nodemon",
-    "config": "node google-serviceaccount.js"
+    "config": "node google-serviceaccount.cjs"
   },
   "keywords": [],
   "type": "module",

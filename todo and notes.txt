@@ -21,6 +21,8 @@ possible solution:
 	- create separate table for in and out
 	- then combine in one table
 
+does not consider a time out in a different day
+	- ex. when you forgot to time out and send a request after midnight 
 
 =
 

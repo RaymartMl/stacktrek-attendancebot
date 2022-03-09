@@ -23,5 +23,5 @@ const jsonFile = JSON.stringify(
 
 const unEscapedJsonFile = jsonFile.replace(/\\n/g, "n");
 
-const fileName = "google/google-serviceaccount.json";
+const fileName = "google-serviceaccount.json";
 writeFileSync(fileName, unEscapedJsonFile);

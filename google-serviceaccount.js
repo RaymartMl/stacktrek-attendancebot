@@ -23,7 +23,7 @@ const jsonFile = JSON.stringify(
 
 const unEscapedJsonFile = jsonFile.replace(/\\n/g, "n");
 
-const fileName = "./google-serviceaccount.json";
+const fileName = "google/google-serviceaccount.json";
 // console.log("Hello =====================================", import.meta.url);
 writeFileSync(fileName, unEscapedJsonFile);
 // console.log("Service =====================================", import.meta.url);

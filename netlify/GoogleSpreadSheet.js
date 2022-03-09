@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 import { Database } from "sheetsql";
+// require("dotenv").config();
+// const { Database } = require("sheetsql");
 
 dotenv.config();
 // console.log("Google =====================================", import.meta.url);
@@ -11,7 +13,7 @@ export class GoogleSpreadsheet {
     this.#db = new Database({
       db: process.env.GOOGLE_SPREADSHEET_DOCUMENT_ID,
       table: process.env.GOOGLE_SPREADSHEET_SHEET_NAME,
-      keyFile: require("../../google-serviceaccount.json"),
+      keyFile: "../google/google-serviceaccount.json",
       cacheTimeoutMs: 5000,
     });
     this.#db.load();

@@ -54,7 +54,7 @@ export async function timeOut(name, date, time) {
   });
 
   if (!record.length) {
-    throw new TimedInError();
+    throw new TimedInError("User has no Time in record");
   }
 
   if (record[0]["Time-out"]) {

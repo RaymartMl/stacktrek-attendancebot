@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 import { Database } from "sheetsql";
 
 dotenv.config();
+console.log("Google =====================================", import.meta.url);
+console.log(process.env.LAMBDA_TASK_ROOT);
 
 export class GoogleSpreadsheet {
   #db;
@@ -9,7 +11,7 @@ export class GoogleSpreadsheet {
     this.#db = new Database({
       db: process.env.GOOGLE_SPREADSHEET_DOCUMENT_ID,
       table: process.env.GOOGLE_SPREADSHEET_SHEET_NAME,
-      keyFile: "google-serviceaccount.json",
+      keyFile: "/opt/google-serviceaccount.json",
       cacheTimeoutMs: 5000,
     });
     this.#db.load();

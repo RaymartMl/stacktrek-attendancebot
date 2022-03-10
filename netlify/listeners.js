@@ -13,7 +13,7 @@ export function registerListeners(app) {
   app.message(subtype("bot_message"), onlyDixiBot("Time-in"), timeInCallback);
   app.message(subtype("bot_message"), onlyDixiBot("Time-out"), timeOutCallback);
   app.event("app_mention", appMentionCallback);
-  // app.message("hello", appMentionCallback);
+  app.message("hello", appMentionCallback);
 
   // debugListeners(app);
 }

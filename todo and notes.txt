@@ -21,6 +21,8 @@ possible solution:
 	- create separate table for in and out
 	- then combine in one table
 
+does not consider a time out in a different day
+	- ex. when you forgot to time out and send a request after midnight 
 
 =
 
@@ -42,3 +44,6 @@ alternative:
 
 google sheets api fetch specific text is no working:
 	 https://stackoverflow.com/questions/64476007/how-to-fetch-specific-row-from-google-sheet-by-using-google-sheet-apisnode-js
+
+google sheets
+https://docs.google.com/spreadsheets/d/1rr1ldX_YjbNlVmPGu7Vslzcf03Vof9Mh36-YWIukvmk/edit#gid=1755393825

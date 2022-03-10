@@ -1,6 +1,6 @@
 {
-  "watch": ["src"],
+  "watch": ["netlify"],
   "ext": ".js",
   "ignore": [],
-  "exec": "node src/app.js"
+  "exec": "node netlify/functions/stacktrek-attendancebot.js"
 }

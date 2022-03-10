@@ -5,16 +5,7 @@ display_information:
 features:
   bot_user:
     display_name: Stacktrek Attendance Bot
-    always_online: false
-  shortcuts:
-    - name: Time out
-      type: global
-      callback_id: global_time_out
-      description: Time out
-    - name: Time in
-      type: global
-      callback_id: global_time_in
-      description: Time in
+    always_online: true
 oauth_config:
   scopes:
     bot:
@@ -25,13 +16,13 @@ oauth_config:
       - mpim:history
       - reactions:write
       - users:read
+      - app_mentions:read
 settings:
   event_subscriptions:
+    request_url: https://stacktrek-attendance-bot.netlify.app/.netlify/functions/stacktrek-attendancebot
     bot_events:
       - message.channels
       - message.groups
-  interactivity:
-    is_enabled: true
   org_deploy_enabled: false
-  socket_mode_enabled: true
+  socket_mode_enabled: false
   token_rotation_enabled: false

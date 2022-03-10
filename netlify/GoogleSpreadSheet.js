@@ -9,7 +9,7 @@ export class GoogleSpreadsheet {
     this.#db = new Database({
       db: process.env.GOOGLE_SPREADSHEET_DOCUMENT_ID,
       table: process.env.GOOGLE_SPREADSHEET_SHEET_NAME,
-      keyFile: "./google-serviceaccount.json",
+      keyFile: "google-serviceaccount.json",
       cacheTimeoutMs: 5000,
     });
     this.#db.load();
@@ -54,7 +54,7 @@ export async function timeOut(name, date, time) {
   });
 
   if (!record.length) {
-    throw new TimedInError();
+    throw new TimedInError("User has no Time in record");
   }
 
   if (record[0]["Time-out"]) {

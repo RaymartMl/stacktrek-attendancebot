@@ -9,9 +9,6 @@ import { onlyDixiBot } from "./middlewares.js";
 import { subtype } from "@slack/bolt";
 import { debugListeners } from "./debugListeners.js";
 
-/**
- * @param {import("@slack/bolt").App} app
- */
 export function registerListeners(app) {
   app.message(subtype("bot_message"), onlyDixiBot("Time-in"), timeInCallback);
   app.message(subtype("bot_message"), onlyDixiBot("Time-out"), timeOutCallback);
@@ -50,6 +47,11 @@ async function timeOutCallback({ message, client, logger }) {
   }
 }
 
-function appMentionCallback({ message, say }) {
-  say(`@<${message.user}> Hello there`);
+async function appMentionCallback({ message, say, logger }) {
+  try {
+    console.log("here");
+    await say(`<@${message.user}> Hello there!`);
+  } catch (error) {
+    logger.error(error);
+  }
 }

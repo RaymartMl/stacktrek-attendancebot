@@ -48,10 +48,10 @@ async function timeOutCallback({ message, client, logger }) {
   }
 }
 
-async function appMentionCallback({ message, say, logger }) {
+async function appMentionCallback({ event, say, logger }) {
   try {
     console.log("here");
-    await say(`<@${message.user}> Hello there!`);
+    await say(`<@${event.user}> Hello there!`);
   } catch (error) {
     logger.error(error);
   }

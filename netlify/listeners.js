@@ -12,8 +12,8 @@ import { debugListeners } from "./debugListeners.js";
 export function registerListeners(app) {
   app.message(subtype("bot_message"), onlyDixiBot("Time-in"), timeInCallback);
   app.message(subtype("bot_message"), onlyDixiBot("Time-out"), timeOutCallback);
-  app.event("app_mention", appMentionCallback);
-  // app.message("hello", appMentionCallback);
+  app.event("", appMentionCallback);
+  app.message("@U034DLFA80P", appMentionCallback);
 
   debugListeners(app);
 }
@@ -48,10 +48,10 @@ async function timeOutCallback({ message, client, logger }) {
   }
 }
 
-async function appMentionCallback({ event, say, logger }) {
+async function appMentionCallback({ message, say, logger }) {
   try {
     console.log("here");
-    await say(`<@${event.user}> Hello there!`);
+    await say(`<@${message.user}> Hello there!`);
   } catch (error) {
     logger.error(error);
   }

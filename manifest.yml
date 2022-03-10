@@ -5,7 +5,7 @@ display_information:
 features:
   bot_user:
     display_name: Stacktrek Attendance Bot
-    always_online: false
+    always_online: true
 oauth_config:
   scopes:
     bot:
@@ -16,6 +16,7 @@ oauth_config:
       - mpim:history
       - reactions:write
       - users:read
+      - app_mentions:read
 settings:
   event_subscriptions:
     request_url: https://stacktrek-attendance-bot.netlify.app/.netlify/functions/stacktrek-attendancebot

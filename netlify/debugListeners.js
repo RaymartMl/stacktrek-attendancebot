@@ -19,9 +19,9 @@ export function debugListeners(app) {
     args.next();
   });
 
-  app.message("normal-debug", normalDebugCallback);
-  app.message("error-debug", errorDebugCallback);
-  app.message("time-in-debug", timeInDebugCallback);
+  // app.message("normal-debug", normalDebugCallback);
+  // app.message("error-debug", errorDebugCallback);
+  // app.message("time-in-debug", timeInDebugCallback);
 }
 
 async function normalDebugCallback({ message, client, logger, say }) {

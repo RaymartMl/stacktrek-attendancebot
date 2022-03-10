@@ -12,10 +12,9 @@ import { debugListeners } from "./debugListeners.js";
 export function registerListeners(app) {
   app.message(subtype("bot_message"), onlyDixiBot("Time-in"), timeInCallback);
   app.message(subtype("bot_message"), onlyDixiBot("Time-out"), timeOutCallback);
-  app.event("", appMentionCallback);
   app.message("@U034DLFA80P", appMentionCallback);
 
-  debugListeners(app);
+  // debugListeners(app);
 }
 
 async function timeInCallback({ message, client, logger }) {

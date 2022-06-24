@@ -40,13 +40,13 @@ const app = new bolt.App({
   receiver: expressReceiver,
 });
 
-(async () => {
-  try {
-    await app.start();
-    registerListeners(app);
-    console.log("⚡️ Bolt app is running!");
-  } catch (error) {
-    console.log(`Could not start the slack bot ${error}`);
-    process.exit(1);
-  }
-})();
+// (async () => {
+//   try {
+//     await app.start();
+//     registerListeners(app);
+//     console.log("⚡️ Bolt app is running!");
+//   } catch (error) {
+//     console.log(`Could not start the slack bot ${error}`);
+//     process.exit(1);
+//   }
+// })();
